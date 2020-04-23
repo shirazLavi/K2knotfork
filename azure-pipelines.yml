@@ -110,16 +110,10 @@ stages:
           helm package --version "$SEMANTIC_VERSION" charts/k2bridge -d $empty_dir
           az acr helm push --force "$(ls $empty_dir/*)"
 
-- stage: terraform
-  displayName: Prepare Test Env
-  dependsOn: []  
-  jobs:
-
 - stage: integration_tests
   displayName: Integration Tests
   dependsOn:
   - build
-  - terraform
   # Deploy a new Kusto db
   # Either if the db name is not set to 'demo' which means it is the Dev CI process
   # Or it is the Demo CI process AND the RUN_CREATE_DEMO_KUSTO was set
