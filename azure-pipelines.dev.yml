@@ -39,7 +39,7 @@ variables:
   value: $(DayOfYear)$(Rev:.r)   
 
 steps:
-- script: echo $(Build.DefinitionName) # display MyRunNumber
+- script: echo $(Build.Name) # display MyRunNumber
 - script: echo "build prarm is" + $(BuildParam)
 
 pool:
