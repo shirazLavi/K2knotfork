@@ -40,7 +40,7 @@ variables:
 
 steps:
 - script: echo $(Build.BuildId) # display MyRunNumber
-- script: echo "build prarm is" + $(BuildParam)
+- script: echo $env:NAME
 
 pool:
   vmImage: ubuntu-latest
