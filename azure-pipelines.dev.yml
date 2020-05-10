@@ -40,8 +40,7 @@ variables:
 
 steps:
 - script: echo $(Build.BuildId) # display MyRunNumber
-- script: echo $env:NAME
-
+- script: echo $(Build.Repository.Name)
 pool:
   vmImage: ubuntu-latest
 
