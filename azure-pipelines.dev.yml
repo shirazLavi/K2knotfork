@@ -26,13 +26,21 @@ variables:
 - name: MAJOR_MINOR_VERSION
   value: "0.2" # ONLY UPDATE THIS
 - name: SEMANTIC_VERSION
-  value: "$(MAJOR_MINOR_VERSION).$(DayOfYear)$(Rev:.r)"
+  value: "$(MAJOR_MINOR_VERSION).$(Build.BuildId)"
 - name: KUSTO_DB
   value: "build$(Build.BuildId)"
 - name: COLLECT_TELEMETRY
   value: false
 - name: TELEMETRY_KEY
   value: "00000000-0000-0000-0000-000000000000"
+- name: DayOfyear
+  value: "DAYREV"
+- name: BuildParam
+  value: $(DayOfYear)$(Rev:.r)   
+
+steps:
+- script: echo $(DayOfyear) # display MyRunNumber
+- script: echo "build prarm is" + $(BuildParam)
 
 pool:
   vmImage: ubuntu-latest
