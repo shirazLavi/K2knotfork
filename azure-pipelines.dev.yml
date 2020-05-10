@@ -19,7 +19,7 @@ pr:
     - '*.png'
     - 'README.md'
 
-name: $(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
+name: $(DayOfYear)$(Rev:.r)
 
 variables:
 - group: K2Bridge CI-CD - dev
