@@ -45,5 +45,5 @@ steps:
 pool:
   vmImage: ubuntu-latest
 
-stages:
-- template: azure-pipelines.yml
+#stages:
+#- template: azure-pipelines.yml
