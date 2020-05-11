@@ -27,7 +27,9 @@ steps:
               $q = $(Build.BuildId) % 100000 
               Write-Host "my environment variable is $q "
               echo "##vso[task.setvariable variable=myOutputVar;isOutput=true]$q # display MyRunNumber"
-              Write-Host $env:myOutputVar
+              name: setvarStep
+- script: echo $(setvarStep.myOutputVar)
+            
  
 
 variables:
