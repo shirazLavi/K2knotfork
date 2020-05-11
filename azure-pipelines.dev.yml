@@ -23,14 +23,14 @@ name: $(DayOfYear)$(Rev:.r)
 
 steps:
 - powershell: echo "##vso[task.setvariable variable=myOutputVar;isOutput=true]$(Build.BuildId) % 100000 # display MyRunNumber"
-name: versionModule  
+ 
 
 variables:
 - group: K2Bridge CI-CD - dev
 - name: MAJOR_MINOR_VERSION
   value: "0.2" # ONLY UPDATE THIS
 - name: SEMANTIC_VERSION
-  value: "$(MAJOR_MINOR_VERSION).$(versionModule.myOutputVar) % 100000"
+  value: "$(MAJOR_MINOR_VERSION).$($(DayOfYear)$(Rev:.r).myOutputVar) % 100000"
 - name: KUSTO_DB
   value: "build$(Build.BuildId)"
 - name: COLLECT_TELEMETRY
