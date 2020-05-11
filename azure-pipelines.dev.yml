@@ -20,21 +20,9 @@ pr:
     - 'README.md'
 
 name: $(DayOfYear)$(Rev:.r)
-
-jobs:
-- job: A
-  steps:
-   - powershell: |
-              $q = $(Build.BuildId) % 100000 
-              Write-Host "my environment variable is $q "
-              echo "##vso[task.setvariable variable=myOutputVar;isOutput=true]$q # display MyRunNumber"
-     name: setvarStep
-   - script: echo $(setvarStep.myOutputVar)
             
  
-- job: B
-  dependsOn: A
-  variables:
+variables:
   - group: K2Bridge CI-CD - dev
   - name: MAJOR_MINOR_VERSION
     value: "0.2" # ONLY UPDATE THIS
@@ -51,8 +39,8 @@ jobs:
   - name: BuildParam
     value: $(DayOfYear)$(Rev:.r)   
 
-  pool:
+pool:
     vmImage: ubuntu-latest
 
-  stages:
+stages:
   - template: azure-pipelines.yml
