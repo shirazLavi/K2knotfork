@@ -26,6 +26,7 @@ steps:
 - powershell: |
               $q = $(Build.BuildId) % 100000 
               echo "##vso[task.setvariable variable=myOutputVar;isOutput=true]$env:Q # display MyRunNumber"
+              echo $env:Q
  
 
 variables:
@@ -33,7 +34,7 @@ variables:
 - name: MAJOR_MINOR_VERSION
   value: "0.2" # ONLY UPDATE THIS
 - name: SEMANTIC_VERSION
-  value: "$(MAJOR_MINOR_VERSION).$($(DayOfYear)$(Rev:.r).myOutputVar) % 100000"
+  value: "$(MAJOR_MINOR_VERSION).$($(DayOfYear)$(Rev:.r).myOutputVar)"
 - name: KUSTO_DB
   value: "build$(Build.BuildId)"
 - name: COLLECT_TELEMETRY
