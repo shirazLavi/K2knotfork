@@ -40,7 +40,7 @@ variables:
 
 steps:
 - powershell: $(Build.BuildId) % 100000 # display MyRunNumber
-- script: echo $(Build.Repository.Name)
+- script: echo $SEMANTIC_VERSION
 pool:
   vmImage: ubuntu-latest
 
