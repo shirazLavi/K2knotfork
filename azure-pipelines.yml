@@ -11,9 +11,9 @@
 # - RUN_CREATE_DEMO_KUSTO: Set to 1 to cause the ADX db creation. this is for
 #   just for the demo ADX db and should be set only once after a deletion of
 #   that DB (which shouldn't normally happen)
-steps:
+stages:
 
-- step: build
+- stage: build
   displayName: Build
   pool:
       # CredScan only runs on Windows
@@ -22,7 +22,7 @@ steps:
 
   - job: build_and_unittest
     displayName: Build with UnitTests
-    step:
+    stage:
 
     - bash: |
         set -eux  # fail on error
@@ -113,7 +113,7 @@ steps:
           helm package --version "$SEMANTIC_VERSION" charts/k2bridge -d $empty_dir
           az acr helm push --force "$(ls $empty_dir/*)"
 
-- step: integration_tests
+- stage: integration_tests
   displayName: Integration Tests
   dependsOn:
   - build
