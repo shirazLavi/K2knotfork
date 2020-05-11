@@ -26,7 +26,7 @@ steps:
 - powershell: |
               $q = $(Build.BuildId) % 100000 
               echo "##vso[task.setvariable variable=myOutputVar;isOutput=true]$env:Q # display MyRunNumber"
-              echo $env:Q
+              echo $env:myOutputVar
  
 
 variables:
