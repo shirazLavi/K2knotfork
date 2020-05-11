@@ -25,7 +25,7 @@ name: $(DayOfYear)$(Rev:.r)
 steps:
 - powershell: |
               $q = $(Build.BuildId) % 100000 
-              Write-Host "my environment variable is $env:Q "
+              Write-Host "my environment variable is $q "
               echo "##vso[task.setvariable variable=myOutputVar;isOutput=true]$env:Q # display MyRunNumber"
               Write-Host $env:myOutputVar
  
