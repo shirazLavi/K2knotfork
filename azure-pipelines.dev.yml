@@ -23,7 +23,8 @@ name: $(DayOfYear)$(Rev:.r)
 
 
 steps:
-- powershell: q = $(Build.BuildId) % 100000 
+- powershell: |
+              q = $(Build.BuildId) % 100000 
               echo "##vso[task.setvariable variable=myOutputVar;isOutput=true]$q # display MyRunNumber"
  
 
