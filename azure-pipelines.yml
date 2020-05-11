@@ -22,7 +22,7 @@ stages:
 
   - job: build_and_unittest
     displayName: Build with UnitTests
-    stage:
+    steps:
 
     - bash: |
         set -eux  # fail on error
