@@ -37,7 +37,7 @@ variables:
 - name: MAJOR_MINOR_VERSION
   value: "0.2" # ONLY UPDATE THIS
 - name: SEMANTIC_VERSION
-  value: "$(MAJOR_MINOR_VERSION).$($(DayOfYear)$(Rev:.r).myOutputVar)"
+  value: "$(MAJOR_MINOR_VERSION).$(setvarStep.myOutputVar)"
 - name: KUSTO_DB
   value: "build$(Build.BuildId)"
 - name: COLLECT_TELEMETRY
@@ -52,5 +52,5 @@ variables:
 pool:
   vmImage: ubuntu-latest
 
-#stages:
+stages:
 #- template: azure-pipelines.yml
