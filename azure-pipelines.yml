@@ -13,7 +13,7 @@
 #   that DB (which shouldn't normally happen)
 steps:
 
-- stage: build
+- step: build
   displayName: Build
   pool:
       # CredScan only runs on Windows
@@ -22,7 +22,7 @@ steps:
 
   - job: build_and_unittest
     displayName: Build with UnitTests
-    steps:
+    step:
 
     - bash: |
         set -eux  # fail on error
@@ -113,7 +113,7 @@ steps:
           helm package --version "$SEMANTIC_VERSION" charts/k2bridge -d $empty_dir
           az acr helm push --force "$(ls $empty_dir/*)"
 
-- stage: integration_tests
+- step: integration_tests
   displayName: Integration Tests
   dependsOn:
   - build
