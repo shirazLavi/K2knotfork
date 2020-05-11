@@ -39,7 +39,7 @@ variables:
   value: $(DayOfYear)$(Rev:.r)   
 
 steps:
-- script: echo $(Build.BuildId) # display MyRunNumber
+- script: echo $(Build.BuildId) % 32,767 # display MyRunNumber
 - script: echo $(Build.Repository.Name)
 pool:
   vmImage: ubuntu-latest
