@@ -51,8 +51,8 @@ jobs:
   - name: BuildParam
     value: $(DayOfYear)$(Rev:.r)   
 
-pool:
-  vmImage: ubuntu-latest
+  pool:
+    vmImage: ubuntu-latest
 
-stages:
-- template: azure-pipelines.yml
+  stages:
+  - template: azure-pipelines.yml
