@@ -21,19 +21,13 @@ pr:
 
 name: $(DayOfYear)$(Rev:.r)
             
-parameters:
-- name: image
-  displayName: Pool Image
-  type: string
-  default: $(DayOfYear)$(Rev:.r)
-    
-
+ 
 variables:
   - group: K2Bridge CI-CD - dev
   - name: MAJOR_MINOR_VERSION
     value: "0.2" # ONLY UPDATE THIS
   - name: SEMANTIC_VERSION
-    value: "$(MAJOR_MINOR_VERSION).${{ parameters.image }}"
+    value: "$(MAJOR_MINOR_VERSION).$((Build.BuildId) % 100000) "
   - name: KUSTO_DB
     value: "build$(Build.BuildId)"
   - name: COLLECT_TELEMETRY
