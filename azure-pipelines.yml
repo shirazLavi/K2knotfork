@@ -20,6 +20,11 @@ stages:
       vmImage: 'ubuntu-16.04'
   jobs:
 
+  - job: set_version
+    displayName: Set Version
+    steps:
+    - bash: $name= (cat $AGENT_WORKFOLDER\.version\version.txt)
+            echo $name
   - job: build_and_unittest
     displayName: Build with UnitTests
     steps:
