@@ -24,8 +24,8 @@ stages:
     displayName: Set Version
     steps:
     - bash: |
-            echo $AGENT_WORKFOLDER\.version\version.txt
-            file="$AGENT_WORKFOLDER\.version\version.txt" #the file where you keep your string name
+            echo $BUILD_SOURCESDIRECTORY\.version\version.txt
+            file="$BUILD_SOURCESDIRECTORY/.version/version.txt" #the file where you keep your string name
             name=$(cat "$file")        #the output of 'cat $file' is assigned to the $name variable
             echo $name  
   - job: build_and_unittest
