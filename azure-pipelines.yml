@@ -77,8 +77,8 @@ stages:
         set -eux  # fail on error
         # Build runtime Docker image
         # Reuses the cached build stage from the previous docker build task
-        docker build --build-arg VersionPrefix="$SEMANTIC_VERSION" \
-            -t "$ACR_NAME.azurecr.io/k2bridge:$SEMANTIC_VERSION" \
+        docker build --build-arg VersionPrefix="$SEMANTICVERSION" \
+            -t "$ACR_NAME.azurecr.io/k2bridge:$SEMANTICVERSION" \
             .
       displayName: Build Runtime Image
 
@@ -86,8 +86,8 @@ stages:
         set -eux  # fail on error
         # Build e2e-test Docker image
         docker build --target end2endtest \
-            --build-arg VersionPrefix="$SEMANTIC_VERSION" \
-            -t "$ACR_NAME.azurecr.io/k2bridge-test:$SEMANTIC_VERSION" \
+            --build-arg VersionPrefix="$SEMANTICVERSION" \
+            -t "$ACR_NAME.azurecr.io/k2bridge-test:$SEMANTICVERSION" \
             .
       displayName: Build E2E-Test Image
 
@@ -99,8 +99,8 @@ stages:
         inlineScript: |
           set -eux  # fail on error
           # Push Docker image
-          docker push "$ACR_NAME.azurecr.io/k2bridge:$SEMANTIC_VERSION"
-          docker push "$ACR_NAME.azurecr.io/k2bridge-test:$SEMANTIC_VERSION"
+          docker push "$ACR_NAME.azurecr.io/k2bridge:$SEMANTICVERSION"
+          docker push "$ACR_NAME.azurecr.io/k2bridge-test:$SEMANTICVERSION"
           
     - task: HelmInstaller@1
       displayName: Helm installer
@@ -118,7 +118,7 @@ stages:
           helm repo update
           helm dependency update charts/k2bridge
           empty_dir="$(Build.StagingDirectory)/charts_out"
-          helm package --version "$SEMANTIC_VERSION" charts/k2bridge -d $empty_dir
+          helm package --version "$SEMANTICVERSION" charts/k2bridge -d $empty_dir
           az acr helm push --force "$(ls $empty_dir/*)"
 
 - stage: integration_tests
@@ -170,10 +170,10 @@ stages:
         helm list
         # Deploy chart
         helm upgrade --install k2bridge $(ACR_NAME)/k2bridge \
-          --version "$SEMANTIC_VERSION" \
+          --version "$SEMANTICVERSION" \
           --wait --timeout 30m \
           --set image.repository=$(ACR_NAME).azurecr.io/k2bridge \
-          --set image.tag=$SEMANTIC_VERSION \
+          --set image.tag=$SEMANTICVERSION \
           --set replicaCount=2 \
           --set settings.adxClusterUrl="$KUSTO_URI" \
           --set settings.adxDefaultDatabaseName="$(KUSTO_DB)" \
@@ -244,7 +244,7 @@ stages:
           KUSTO_URI=$(az kusto cluster show -g $(RESOURCE_GROUP) -n $(KUSTO_NAME) --query uri -o tsv)
           AAD_TOKEN=$(az account get-access-token --resource "$KUSTO_URI" --query accessToken -o tsv)
           kubectl run --restart=Never \
-            --image=$(ACR_NAME).azurecr.io/k2bridge-test:$SEMANTIC_VERSION \
+            --image=$(ACR_NAME).azurecr.io/k2bridge-test:$SEMANTICVERSION \
             --env=K2BRIDGE_URL=http://k2bridge:8080 \
             --env=ELASTICSEARCH_URL=http://elasticsearchqa-master:9200 \
             --env=KUSTO_URI=$KUSTO_URI \
@@ -311,9 +311,9 @@ stages:
           set -eux  # fail on error
           az configure --defaults acr="$ACR_NAME"
           az acr login
-          docker pull "$ACR_NAME.azurecr.io/k2bridge:$SEMANTIC_VERSION"
+          docker pull "$ACR_NAME.azurecr.io/k2bridge:$SEMANTICVERSION"
           docker tag \
-            "$ACR_NAME.azurecr.io/k2bridge:$SEMANTIC_VERSION" \
+            "$ACR_NAME.azurecr.io/k2bridge:$SEMANTICVERSION" \
             "$ACR_NAME.azurecr.io/k2bridge:latest"
           docker push "$ACR_NAME.azurecr.io/k2bridge:latest"
 
@@ -326,12 +326,12 @@ stages:
           set -eux  # fail on error
           az configure --defaults acr="$ACR_MCR_NAME"
           az acr login
-          docker pull "$ACR_NAME.azurecr.io/k2bridge:$SEMANTIC_VERSION"
+          docker pull "$ACR_NAME.azurecr.io/k2bridge:$SEMANTICVERSION"
           docker tag \
-            "$ACR_NAME.azurecr.io/k2bridge:$SEMANTIC_VERSION" \
+            "$ACR_NAME.azurecr.io/k2bridge:$SEMANTICVERSION" \
             "$ACR_MCR_NAME.azurecr.io/public/azuredataexplorer/k2bridge:latest"
           docker push "$ACR_MCR_NAME.azurecr.io/public/azuredataexplorer/k2bridge:latest"
           docker tag \
-            "$ACR_NAME.azurecr.io/k2bridge:$SEMANTIC_VERSION" \
-            "$ACR_MCR_NAME.azurecr.io/public/azuredataexplorer/k2bridge:$SEMANTIC_VERSION"
-          docker push "$ACR_MCR_NAME.azurecr.io/public/azuredataexplorer/k2bridge:$SEMANTIC_VERSION"
+            "$ACR_NAME.azurecr.io/k2bridge:$SEMANTICVERSION" \
+            "$ACR_MCR_NAME.azurecr.io/public/azuredataexplorer/k2bridge:$SEMANTICVERSION"
+          docker push "$ACR_MCR_NAME.azurecr.io/public/azuredataexplorer/k2bridge:$SEMANTICVERSION"
