@@ -23,8 +23,11 @@ stages:
   - job: set_version
     displayName: Set Version
     steps:
-    - bash: $name= (cat $AGENT_WORKFOLDER\.version\version.txt)
-            echo $name
+    - bash: |
+            echo $AGENT_WORKFOLDER\.version\version.txt
+            file="$AGENT_WORKFOLDER\.version\version.txt" #the file where you keep your string name
+            name=$(cat "$file")        #the output of 'cat $file' is assigned to the $name variable
+            echo $name  
   - job: build_and_unittest
     displayName: Build with UnitTests
     steps:
