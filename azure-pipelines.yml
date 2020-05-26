@@ -19,16 +19,7 @@ stages:
       # CredScan only runs on Windows
       vmImage: 'ubuntu-16.04'
   jobs:
-
-  - job: set_version
-    displayName: Set Version
-    steps:
-    - bash: |
-            echo $BUILD_SOURCESDIRECTORY\.version\version.txt
-            file="$BUILD_SOURCESDIRECTORY/.version/version.txt" #the file where you keep your string name
-            name=$(cat "$file")        #the output of 'cat $file' is assigned to the $name variable
-            echo $name
-            echo "##vso[task.setvariable variable=semanticVersion]$name"  
+ 
   - job: build_and_unittest
     displayName: Build with UnitTests
     steps:
