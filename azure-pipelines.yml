@@ -33,7 +33,7 @@ stages:
         echo $name
         echo "##vso[task.setvariable variable=semanticversion]$name"
     - powershell:        
-        Write-Host $(env:$SEMANTICVERSION + 1)
+        Write-Host ($(semanticversion) + 1)
 
     - bash: |    
         echo $(semanticversion)
