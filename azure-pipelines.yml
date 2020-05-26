@@ -35,7 +35,7 @@ stages:
         
 
     - bash: |
-        new_version=$(echo '0.2.500'|awk -F "." '{print $1"."$2"."$3+1}')
+        new_version= echo $(semanticversion)|awk -F "." '{print $1"."$2"."$3+1}')
         echo $(new_version)
         echo $(semanticversion)
         echo "docker build --target build --build-arg VersionPrefix=$SEMANTICVERSION -t k2bridge-build ."
