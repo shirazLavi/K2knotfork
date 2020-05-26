@@ -32,7 +32,6 @@ stages:
         name=$(cat "$file")        #the output of 'cat $file' is assigned to the $name variable
         echo $name
         echo "##vso[task.setvariable variable=semanticversion]$name" 
-        awk '{$name+=1} END {printf "%.0f", $name}' $file
     - bash: |    
         echo $(semanticversion)
         echo "docker build --target build --build-arg VersionPrefix=$SEMANTICVERSION -t k2bridge-build ."
