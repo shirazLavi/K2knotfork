@@ -41,10 +41,10 @@ stages:
         git --help
         git config user.email "kopscdpx@microsoft.com" 
         git config user.name "Kusto build automation agent" 
-        git checkout $current_branch 
+        git checkout master 
         git status 
-        git commit -m "${new_version}-${commit_hash}-${timestamp}-${i} ***NO_CI***" 
-        git push upstream $current_branch --no-verify
+        git commit -m "commit from yml" 
+        git push upstream master --no-verify
 
     - bash: |   
         echo "docker build --target build --build-arg VersionPrefix=$SEMANTICVERSION -t k2bridge-build ."
