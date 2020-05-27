@@ -46,7 +46,7 @@ stages:
         git add .version/version.txt 
         git commit -m "commit from yml ***NO_CI***"
         git status
-        git -c http.extraheader="AUTHORIZATION: basic $SYSTEM_ACCESSTOKEN" push origin master
+        git push origin master
       env:
         SYSTEM_ACCESSTOKEN: $(system.accesstoken)
 
