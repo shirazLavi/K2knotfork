@@ -38,7 +38,8 @@ stages:
         
 
     - bash: |
-
+        git config user.email "kopscdpx@microsoft.com" 
+        git config user.name "Kusto build automation agent"
         git status 
         git commit -m "commit from yml"
 
