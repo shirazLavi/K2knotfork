@@ -36,8 +36,9 @@ stages:
 
     - bash: |
         new_version=$(cat .version/version.txt|awk -F "." '{print $1"."$2"."$3+1}')
-        echo $new_version
-        echo $(semanticversion)
+        echo "$new_version"
+        echo "$(semanticversion)"
+        git --help
         git config user.email "kopscdpx@microsoft.com" 
         git config user.name "Kusto build automation agent" 
         git checkout $current_branch 
