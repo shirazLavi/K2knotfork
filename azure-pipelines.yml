@@ -38,11 +38,13 @@ stages:
         
 
     - bash: |
-        cd /home/vsts/work/1/s/ 
+        cd $(Build.SourcesDirectory)
+        git checkout $(Build.SourceBranch)
         git config user.email "kopscdpx@microsoft.com" 
         git config user.name "Kusto build automation agent"
         git status 
-        git commit -m "commit from yml"
+        git commit -m "commit from yml ***NO_CI***"
+        git -c http.extraheader="AUTHORIZATION: basic $(System.AccessToken)" push
 
     - bash: |   
         echo "docker build --target build --build-arg VersionPrefix=$SEMANTICVERSION -t k2bridge-build ."
