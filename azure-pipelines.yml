@@ -35,13 +35,13 @@ stages:
         
 
     - bash: |
+        git init
         new_version=$(cat .version/version.txt|awk -F "." '{print $1"."$2"."$3+1}')
         echo "$new_version"
         echo $(semanticversion)
-        git --help
         git config user.email "kopscdpx@microsoft.com" 
         git config user.name "Kusto build automation agent" 
-        git checkout master 
+        git checkout $(Build.SourceBranchName) 
         git status 
         git commit -m "commit from yml" 
         git push upstream master --no-verify
