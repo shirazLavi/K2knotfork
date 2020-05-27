@@ -39,7 +39,7 @@ stages:
 
     - bash: |
         cd $(Build.SourcesDirectory)
-        git checkout $(Build.SourceBranch)
+        git checkout $(Build.SourceBranchName)
         git config user.email "kopscdpx@microsoft.com" 
         git config user.name "Kusto build automation agent"
         git status 
