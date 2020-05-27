@@ -38,6 +38,7 @@ stages:
         
 
     - bash: |
+        cd /home/vsts/work/1/s/ 
         git config user.email "kopscdpx@microsoft.com" 
         git config user.name "Kusto build automation agent"
         git status 
