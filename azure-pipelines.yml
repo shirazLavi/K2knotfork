@@ -42,7 +42,8 @@ stages:
         git checkout $(Build.SourceBranchName)
         git config user.email "kopscdpx@microsoft.com" 
         git config user.name "Kusto build automation agent"
-        git status 
+        git status
+        git add .version/version.txt 
         git commit -m "commit from yml ***NO_CI***"
         git -c http.extraheader="AUTHORIZATION: basic $(System.AccessToken)" push
 
