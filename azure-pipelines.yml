@@ -24,7 +24,7 @@ stages:
     displayName: Build with UnitTests
     steps:
 
-    - bash: |
+    - bash: |   
         set -eux  # fail on error
         # Only build first stage of Dockerfile (build and unit test)
         echo $BUILD_SOURCESDIRECTORY\.version\version.txt
@@ -45,7 +45,9 @@ stages:
         git status
         git add .version/version.txt 
         git commit -m "commit from yml ***NO_CI***"
-        git -c http.extraheader="AUTHORIZATION: basic $(System.AccessToken)" push
+        git -c http.extraheader="AUTHORIZATION: basic $SYSTEM_ACCESSTOKEN" push
+      env:
+        SYSTEM_ACCESSTOKEN: $(system.accesstoken)
 
     - bash: |   
         echo "docker build --target build --build-arg VersionPrefix=$SEMANTICVERSION -t k2bridge-build ."
