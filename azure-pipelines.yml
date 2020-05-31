@@ -50,7 +50,7 @@ stages:
         git status
         git push origin master
     env:
-    MY_MAPPED_TOKEN: $(PATGIT)
+      MY_MAPPED_TOKEN: $(PATGIT)
 
 
     - bash: |   
