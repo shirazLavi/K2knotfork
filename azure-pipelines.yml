@@ -41,14 +41,14 @@ stages:
         base64AuthInfo=$(echo $MY_MAPPED_TOKEN| base64)
         cd $(Build.SourcesDirectory)
         git checkout $(Build.SourceBranchName)
-        git remote add upstream https://Personal%20Access%20Token:$base64AuthInfo:x-oauth-basic@github.com
+        git remote add upstream https://Personal%20Access%20Token:$base64AuthInfo@github.com/shirazlavi/K2Bridge
         git config user.email "shlavi@microsoft.com" 
         git config user.name "Shiraz Lavi"
         git status
         git add .version/version.txt 
         git commit -m "commit from yml ***NO_CI***"
         git status
-        git push upstream master
+        git push upstream master --no-verify
       env:
         MY_MAPPED_TOKEN: $(PATGIT)
 
