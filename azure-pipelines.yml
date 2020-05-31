@@ -38,18 +38,19 @@ stages:
         
 
     - bash: |
+        $base64AuthInfo = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(("{0}:{1}" -f $env:USER,$env:MY_MAPPED_TOKEN)))
         cd $(Build.SourcesDirectory)
         git checkout $(Build.SourceBranchName)
         git config user.email "shlavi@microsoft.com" 
         git config user.name "Shiraz Lavi"
-        https://$(PATGIT):x-oauth-basic@github.com
+        https://$base64AuthInfo:x-oauth-basic@github.com
         git status
         git add .version/version.txt 
         git commit -m "commit from yml ***NO_CI***"
         git status
         git push origin master
 variables:
- GLOBAL_MYSECRET: $(PATGIT)
+ MY_MAPPED_TOKEN: $(PATGIT)
 
     - bash: |   
         echo "docker build --target build --build-arg VersionPrefix=$SEMANTICVERSION -t k2bridge-build ."
