@@ -49,8 +49,8 @@ stages:
         git commit -m "commit from yml ***NO_CI***"
         git status
         git push origin master
-    env:
-      MY_MAPPED_TOKEN: $(PATGIT)
+      env:
+        MY_MAPPED_TOKEN: $(PATGIT)
 
 
     - bash: |   
