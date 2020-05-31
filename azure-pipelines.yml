@@ -38,17 +38,17 @@ stages:
         
 
     - bash: |
-        $base64AuthInfo = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(("{0}:{1}" -f $env:USER,$env:MY_MAPPED_TOKEN)))
+        base64AuthInfo=$(echo $MY_MAPPED_TOKEN| base64)
         cd $(Build.SourcesDirectory)
         git checkout $(Build.SourceBranchName)
+        git remote add upstream https://Personal%20Access%20Token:$base64AuthInfo:x-oauth-basic@github.com
         git config user.email "shlavi@microsoft.com" 
         git config user.name "Shiraz Lavi"
-        https://$base64AuthInfo:x-oauth-basic@github.com
         git status
         git add .version/version.txt 
         git commit -m "commit from yml ***NO_CI***"
         git status
-        git push origin master
+        git push upstream master
       env:
         MY_MAPPED_TOKEN: $(PATGIT)
 
