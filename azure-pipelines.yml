@@ -49,8 +49,7 @@ stages:
         git commit -m "commit from yml ***NO_CI***"
         git status
         git push origin master
-variables:
- MY_MAPPED_TOKEN: $(PATGIT)
+
 
     - bash: |   
         echo "docker build --target build --build-arg VersionPrefix=$SEMANTICVERSION -t k2bridge-build ."
